@@ -1,0 +1,24 @@
+# Trained baseline: YOLOv8n, full KACHARA dataset, Colab T4 GPU.
+# This config wasn't run through src/train.py (training happened directly on
+# Colab) -- it's reconstructed here to match the actual training args saved
+# in experiments/checkpoints/baseline_yolo_gpu_full/args.yaml, so
+# src/evaluate.py and src/inference.py can load these weights correctly.
+# See docs/contribution-notes.md for the confirmed results (mAP50 0.609).
+pipeline: baseline_yolo
+
+data:
+  root: data/raw
+
+model:
+  yolo_variant: yolov8n.pt
+
+train:
+  epochs: 50
+  batch_size: 32
+  imgsz: 640
+  device: null
+
+output:
+  project: experiments/checkpoints
+  name: baseline_yolo_gpu_full
+  log_file: experiments/logs/baseline_yolo_gpu_full.log

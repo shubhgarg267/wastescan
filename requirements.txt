@@ -1,0 +1,34 @@
+﻿# Core
+torch>=2.1.0
+torchvision>=0.16.0
+ultralytics>=8.2.0        # YOLOv8 baseline + export utils
+
+# Data / CV
+opencv-python>=4.9.0
+albumentations>=1.4.15    # needs num_holes_range/hole_height_range CoarseDropout API
+numpy>=1.26.0,<2
+pandas>=2.2.0
+pycocotools>=2.0.7
+Pillow>=10.2.0
+
+# Faster R-CNN baseline (torchvision.models.detection) uses torchvision above.
+
+# Metrics / eval
+
+# Viz
+matplotlib>=3.8.0
+
+# Config / experiment tracking
+pyyaml>=6.0.1
+tqdm>=4.66.0
+
+# Notebooks
+
+# Demo UI
+streamlit>=1.32.0
+open_clip_torch>=2.24.0   # out-of-domain input gate (app.py), ViT-B-32/openai weights
+ftfy>=6.1.0
+regex>=2023.0.0
+
+# Testing
+pytest>=8.0.0

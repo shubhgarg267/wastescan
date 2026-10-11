@@ -1,0 +1,26 @@
+# Baseline: Faster R-CNN, no tiling, no fusion, no severity scoring.
+pipeline: baseline_frcnn
+
+data:
+  root: data/raw
+  augmentation:
+    occlusion_sim: false   # baseline uses standard augmentation only
+
+model:
+  pretrained_backbone: true
+
+train:
+  epochs: 25
+  batch_size: 4
+  imgsz: 640
+  lr: 0.005
+  momentum: 0.9
+  weight_decay: 0.0005
+  device: null
+  num_workers: 2
+  log_every: 50
+
+output:
+  project: experiments/checkpoints
+  name: baseline_frcnn
+  log_file: experiments/logs/baseline_frcnn.log

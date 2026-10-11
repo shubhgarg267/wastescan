@@ -1,0 +1,52 @@
+# Ablation leg 2/3: tiling + cross-tile merge, WITHOUT feature-level fusion
+# (plain FPN backbone). Isolates "does tiling alone help" from "does the
+# fusion block add anything on top of tiling" -- see docs/contribution-notes.md.
+# Identical to scale_fusion.yaml except model.use_fusion: false -- every other
+# field (data, tiling, augmentation, train hyperparameters) is kept the same
+# on purpose so the two runs are a clean apples-to-apples comparison.
+#
+# NOTE: the KACHARA Roboflow export ships every image pre-cropped to
+# 640x640 already (confirmed by inspecting data/raw — see
+# docs/contribution-notes.md). There is no larger full-site image left to
+# tile, so tiling here means sub-patching each 640x640 image into smaller
+# overlapping windows (below tile_size < imgsz) to still stress small/
+# occluded-object recovery, not reconstructing a full aerial site.
+pipeline: scale_fusion
+
+data:
+  root: data/raw
+  tiling:
+    tile_size: 320
+    overlap: 0.2
+    min_visibility: 0.3
+  augmentation:
+    occlusion_sim: true    # occlusion-simulating CoarseDropout enabled — see src/data/augmentation.py
+
+model:
+  backbone: resnet50
+  pretrained_backbone: true
+  use_fusion: false    # plain FPN backbone -- no ScaleFusionBlock (the tiling-only ablation leg)
+
+train:
+  epochs: 25
+  batch_size: 4
+  imgsz: 640   # each 320x320 tile is upsampled to 640 before the network sees it,
+               # deliberately increasing small objects' effective size/resolution
+  lr: 0.005
+  momentum: 0.9
+  weight_decay: 0.0005
+  device: null
+  num_workers: 2
+  log_every: 50
+
+output:
+  project: experiments/checkpoints
+  name: tiling_only
+  log_file: experiments/logs/tiling_only.log
+
+severity:
+  grid_rows: 3
+  grid_cols: 3
+  level_thresholds:
+    low: 0.10
+    medium: 0.30

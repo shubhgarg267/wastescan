@@ -1,0 +1,48 @@
+# Run-only repo: code + configs needed to run/train/evaluate. No paper, no data.
+
+# Not part of the run-only repo
+paper/
+docs/
+notebooks/
+results/
+CLAUDE.md
+.claude/
+.agents/
+
+# Data (never committed)
+data/
+
+# Experiment outputs
+experiments/checkpoints/
+experiments/logs/
+experiments/configs/baseline_yolo.yaml
+experiments/configs/baseline_yolo_cpu*.yaml
+
+# Weights and caches
+*.pt
+*.pth
+*.onnx
+*.cache
+runs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+.env.*
+.streamlit/secrets.toml
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
